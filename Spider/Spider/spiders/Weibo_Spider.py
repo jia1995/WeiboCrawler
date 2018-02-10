@@ -26,7 +26,7 @@ class WeiboSpiderSpider(scrapy.Spider):
     name = "Weibo_Spider"
     Completed_UID = ['1917433500','2127403275']
     Task_In_Queue = 1
-    Account_Cookies.append(get_cookie_from_weibo('18390970635','ttk6168'))
+    Account_Cookies.append(get_cookie_from_weibo('your account','your password'))
     def start_requests(self):
         #return [
         yield Request('https://weibo.cn/u/' + self.Completed_UID[0] ,cookies=Account_Cookies[0],meta=Header,callback=self.GetUsrInfo)

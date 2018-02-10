@@ -24,14 +24,16 @@ def GetPostInfo(self, Info):
 
 class WeiboSpiderSpider(scrapy.Spider):
     name = "Weibo_Spider"
-    Completed_UID = ['6449959454']
+    Completed_UID = ['1917433500','2127403275']
     Task_In_Queue = 1
-    Account_Cookies.append(get_cookie_from_weibo('18229918002','ttk1125'))
+    Account_Cookies.append(get_cookie_from_weibo('18390970635','ttk6168'))
     def start_requests(self):
-        return [
-            Request('https://weibo.cn/' + self.Completed_UID[0] + '/fans',cookies=Account_Cookies[0],meta=Header,callback=self.GetFollowers)
+        #return [
+        yield Request('https://weibo.cn/u/' + self.Completed_UID[0] ,cookies=Account_Cookies[0],meta=Header,callback=self.GetUsrInfo)
+        yield Request('https://weibo.cn/' + self.Completed_UID[0] + '/fans',cookies=Account_Cookies[0],meta=Header,callback=self.GetFans)
+        yield Request('https://weibo.cn/' + self.Completed_UID[0] + '/follow',cookies=Account_Cookies[0],meta=Header,callback=self.GetFollowers)
             #Request('http://www.ipip.net/',callback=self.Show_IP)
-        ]
+        #]
     def Show_IP(self,response):
         soup = bs4.BeautifulSoup(response.body.decode(response.encoding),'lxml')
         print(response.body.decode('utf-8', 'ignore').replace(u'\xa9', u''))

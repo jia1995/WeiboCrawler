@@ -44,12 +44,12 @@ class StitchPipeline(object):
 class SpiderPipeline(object):
     Cur = object()   #SQL
     Conn = object()  #SQL
-    client = object()
+    #client = object()
     def __init__(self):
         try:
-            self.Conn = pymysql.connect(host="localhost",user="root",passwd="123abc456",db="weibo",charset="utf8")
+            self.Conn = pymysql.connect(host="localhost",user="root",passwd="123abc456",db="weibo_test",charset="utf8")
             self.Cur = self.Conn.cursor()
-            self.client = WeiboClient()
+            #self.client = WeiboClient()
         except Exception as e:
             print('Failed to Get SQL!')
             exit(1)
@@ -60,6 +60,7 @@ class SpiderPipeline(object):
         item['Num_Post'],item['Num_Fans'],
         item['Num_Follows'],datetime.date.today()))
         self.Conn.commit()
+    '''
     def SubmitContext(self,UID):
         psql = "insert into weibo_context(uid,cid,context,time) values (%s,%s,%s,%s)"
         p = self.client.people(UID)
@@ -67,13 +68,14 @@ class SpiderPipeline(object):
            self.Cur.execute("set names utf8mb4")
            self.Cur.execute(psql,(UID,format(status.id),format(status.text),format(status.created_at)))
            self.Conn.commit()
-
+    '''
     def process_item(self, item, spider):
         if item != None:
-            try:
-                self.Submit(item)
-                self.SubmitContext(item['Usr_ID'])
-                return 'SQL Sending Successfully.'
-            except Exception as e:
-                return e
+            if '湖北' in item['Usr_Info']:
+                try:
+                    self.Submit(item)
+                    #self.SubmitContext(item['Usr_ID'])
+                    return 'SQL Sending Successfully.'
+                except Exception as e:
+                    return e
         return

@@ -13,7 +13,7 @@ class WeiboSearchPipeline(object):
 
     def __init__(self):
         try:
-            self.conn = pymysql.connect(host="localhost",user="root",passwd="123abc456",db="weibo",charset="utf8")
+            self.conn = pymysql.connect(host="localhost",user="your username",passwd="your passwd",db="your db",charset="utf8")
             self.cur = self.conn.cursor()
         except Exception as e:
             print("Failed to Get SQL!")

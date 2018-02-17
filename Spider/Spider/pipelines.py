@@ -47,7 +47,7 @@ class SpiderPipeline(object):
     #client = object()
     def __init__(self):
         try:
-            self.Conn = pymysql.connect(host="localhost",user="root",passwd="123abc456",db="weibo_test",charset="utf8")
+            self.Conn = pymysql.connect(host="localhost",user="your user",passwd="your passwd",db="your db",charset="utf8")
             self.Cur = self.Conn.cursor()
             #self.client = WeiboClient()
         except Exception as e:
